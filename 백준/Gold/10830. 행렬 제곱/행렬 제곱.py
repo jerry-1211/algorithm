@@ -1,40 +1,38 @@
+
 import sys
 
-N, B = map(int, sys.stdin.readline().split())  # N*N행렬 입력 , B만큼 제곱
-A = [list(map(int, sys.stdin.readline().split())) for _ in range(N)]  # 행렬 받기
+sys.setrecursionlimit(100000) 
 
+N,B = map(int,sys.stdin.readline().split())
 
-# NxN 행렬 곱셈 함수
-def multiplication(n, a, b):
-    result = [[0] * n for _ in range(n)]
-    for row in range(n):
-        for column in range(n):
-            for i in range(n):
-                result[row][column] += a[row][i] * b[i][column]
-            result[row][column] %= 1000
-    return result
+A = [list(map(int,sys.stdin.readline().split())) for _ in range(N)]
 
+def mul_matrix(mat1,mat2):
+    tmp = [[0] * N for _ in range(N)]
+    for i in range(N):
+        for j in range(N):
+            for k in range(N):
+                tmp[i][j] += mat1[i][k] * mat2[k][j]
+            tmp[i][j] %= 1000
+    return tmp
 
-def cal(n, b, a):
-    # 1 제곱
-    if b == 1:
-        return a
-    # 2 제곱
-    elif b == 2:
-        return multiplication(n, a, a)
+def cal(n,a,b) : 
+    if b == 1 :
+        return a 
+    elif b ==2 :
+        return mul_matrix(a,a)
     else:
-        temp = cal(n, b // 2, a)
-        # b가 짝수일 경우
-        if b % 2 == 0:
-            return multiplication(n, temp, temp)
-        # b가 홀수일 경우
+        temp = cal(n,a,b//2)
+        if b % 2 == 0 :
+            return mul_matrix(temp,temp)
         else:
-            return multiplication(n, multiplication(n, temp, temp), a)
+            return mul_matrix(mul_matrix(temp,temp),a)
+    return
 
+lst = cal(N,A,B)
 
-result = cal(N, B, A)
-
-for c in result:
-    for num in c:
-        print(num % 1000, end=' ')
+for i in range(N):
+    for j in range(N):
+        print(lst[i][j]%1000,end=' ')
     print()
+    
