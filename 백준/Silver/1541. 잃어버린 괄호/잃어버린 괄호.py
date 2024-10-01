@@ -1,49 +1,14 @@
 import sys
+input = sys.stdin.readline
 
-lst = list(input())
-operations = ['+',"-"]
-num = []
-current = 0 
-tmp = ""
+S = input().split('-')
 
-while True : 
-    
-    if lst[current] in operations:
-        num.append(int(tmp))
-        num.append(lst[current])
-        tmp = ""
-        current += 1
-        continue
+lst = []
+for i in range(len(S)):
+    lst.append(sum(list(map(int,S[i].split("+")))))
 
-    tmp += lst[current]
-    current += 1
+rs = lst[0]
 
-
-    if current == len(lst):
-        num.append(int(tmp))
-        break
-
-
-rs = []
-hap = 0
-for i in range(len(num)) :
-    if num[i] == "-":
-        rs.append(hap)
-        rs.append(num[i])
-        hap = 0
-    elif num[i] == "+":
-        continue
-    else:
-        hap += num[i]
-        if  i == len(num)-1:
-            rs.append(hap)
-
-
-rrs = rs[0]
-if len(rs)== 1 : 
-    print(rs[0])
-else: 
-    for i in range(1,len(rs)-1) :
-        if rs[i] == "-" :
-            rrs -= rs[i+1]
-    print(rrs)
+for ls in lst[1:]:
+    rs -= ls
+print(rs)
