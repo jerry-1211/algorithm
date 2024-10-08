@@ -1,7 +1,6 @@
 import sys
 input = sys.stdin.readline
 
-
 N = int(input())
 
 INF = sys.maxsize
@@ -20,7 +19,7 @@ lst = [N]
 
 
 for k in range(N,0,-1):
-    if dp[k] == dp[cur]-1 and ((k+1)==cur or k*3==cur or (k*2)==cur) :
+    if dp[k] == dp[cur]-1 and (k*3==cur or (k+1)==cur or (k*2)==cur) :
         lst.append(k)
         cur = k
 
