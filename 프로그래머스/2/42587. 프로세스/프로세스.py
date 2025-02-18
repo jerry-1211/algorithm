@@ -1,27 +1,12 @@
-from collections import deque
-
 def solution(priorities, location):
-    visit = deque([i for i in range(len(priorities))])
-    priorities = deque(priorities)
+    queue = [(i,p) for i,p in enumerate(priorities)]
+    answer = 0
     
-    rs, answer = visit[location], 0    
-    
-    while priorities :
-        if priorities[0] == max(priorities):
-            
-            if visit[0] == rs:
-                answer += 1
+    while True : 
+        cur = queue.pop(0)
+        if any(cur[1] < q[1] for q in queue):
+            queue.append(cur)
+        else: 
+            answer += 1 
+            if cur[0] == location:
                 return answer
-            
-            priorities.popleft()
-            visit.popleft()
-            answer += 1
-            
-        else:       
-            p_tmp = priorities.popleft()
-            v_tmp = visit.popleft()
-            priorities.append(p_tmp)
-            visit.append(v_tmp)
-            
-    
-    return answer
