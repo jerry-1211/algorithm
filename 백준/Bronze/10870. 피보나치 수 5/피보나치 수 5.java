@@ -1,4 +1,5 @@
 import java.io.*;
+import java.sql.SQLOutput;
 import java.util.*;
 
 public class Main {
@@ -7,20 +8,14 @@ public class Main {
 
         // 초기값 세팅
         int N = Integer.parseInt(br.readLine());
-        int cnt = 2;
-        int[] answer = new int[N+100];
-        answer[0] = 0 ; answer[1] = 1;
+        int[] fibo = new int[N+10];
 
-        fibo(cnt,N+10,answer);
-        System.out.println(answer[N]);
-    }
+        fibo[0] = 0; fibo[1] = 1;
 
-    private static void fibo(int cnt, int N,int[] answer){
-        if(N+1 == cnt){
-            return ;
+        for (int i = 2; i <=N ; i++) {
+            fibo[i] = fibo[i-1] + fibo[i-2];
         }
-        answer[cnt] = answer[cnt-1] + answer[cnt-2];
-        fibo(++cnt,N ,answer);
-    }
 
+        System.out.println(fibo[N]);
+    }
 }
