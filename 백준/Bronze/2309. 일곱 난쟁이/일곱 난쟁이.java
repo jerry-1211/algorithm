@@ -5,30 +5,33 @@ public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader((new InputStreamReader(System.in)));
 
-        List<Integer> list = new ArrayList<>();
+        int totalSum = 0;
+        List<Integer> arrayLists = new ArrayList<>();
+
         for (int i = 0; i < 9; i++) {
-            list.add(Integer.parseInt(br.readLine()));
+            int dwarf = Integer.parseInt(br.readLine());
+            arrayLists.add(dwarf);
+            totalSum += dwarf;
         }
 
-        extract100(list);
-        Collections.sort(list);
+        extract100(totalSum, arrayLists);
+        Collections.sort(arrayLists);
 
-        for (Integer l : list) {
-            System.out.println(l);
+        for (Integer lst : arrayLists) {
+            System.out.println(lst);
         }
+
     }
 
-    private static void extract100(List<Integer> list) {
-        int sumList = list.stream().mapToInt(Integer::intValue).sum();
-
+    private static void extract100(int totalSum, List<Integer> arrayLists) {
         for (int i = 0; i < 8; i++) {
             for (int j = i+1; j < 9; j++) {
-                if((sumList - list.get(i) - list.get(j)) == 100){
-                    list.removeAll(List.of(list.get(i), list.get(j)));
+                int tmpSum = totalSum - arrayLists.get(i) - arrayLists.get(j);
+                if(tmpSum == 100){
+                    arrayLists.removeAll(List.of(arrayLists.get(i), arrayLists.get(j))) ;
                     return;
-                };
+                }
             }
         }
     }
-
 }
