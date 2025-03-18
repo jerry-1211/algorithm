@@ -17,16 +17,18 @@ public class Main {
                 isPrime[j] = false ;
             }
         }
-        
-        isPrime[0] = isPrime[1] = false;
-        
-        int sum = 0;
-        int mn = end+1;
 
-        for (int i = end ; i >= start; i--) {
+        isPrime[0] = isPrime[1] = false;
+
+        int sum = 0;
+        int mn = -1;
+
+        for (int i = start ; i <= end; i++) {
             if(isPrime[i]){
                 sum += i;
-                mn = i;
+                if (mn == -1) {
+                    mn = i;
+                }
             }
         }
 
