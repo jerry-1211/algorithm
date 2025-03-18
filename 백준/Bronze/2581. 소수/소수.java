@@ -1,40 +1,41 @@
 import java.io.*;
 import java.util.*;
+import java.util.stream.IntStream;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedReader br = new BufferedReader((new InputStreamReader(System.in)));
 
         int start = Integer.parseInt(br.readLine());
         int end = Integer.parseInt(br.readLine());
 
-        boolean[] isPrime = new boolean[end + 1];
-        Arrays.fill(isPrime, true);
+        boolean[] isPrime = new boolean[end+1];
+        Arrays.fill(isPrime,true);
+
+        for (int i = 2; i <= end; i++) {
+            for (int j = i*i; j <= end; j+=i) {
+                isPrime[j] = false ;
+            }
+        }
+        
         isPrime[0] = isPrime[1] = false;
-
-        for (int i = 2; i * i <= end; i++) {
-            if (isPrime[i]) {
-                for (int j = i * i; j <= end; j += i) {
-                    isPrime[j] = false;
-                }
-            }
-        }
-
+        
         int sum = 0;
-        int mn = -1;
+        int mn = end+1;
 
-        for (int i = start; i <= end; i++) {
-            if (isPrime[i]) {
-                if (mn == -1) mn = i;
+        for (int i = end ; i >= start; i--) {
+            if(isPrime[i]){
                 sum += i;
+                mn = i;
             }
         }
 
-        if (sum == 0) {
+        if(sum == 0 ){
             System.out.println(-1);
-        } else {
+        }else{
             System.out.println(sum);
             System.out.println(mn);
         }
+
     }
 }
