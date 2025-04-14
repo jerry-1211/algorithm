@@ -1,35 +1,31 @@
 import sys
-input = sys.stdin.readline
+
+
 
 T = int(input())
 
-for _ in range(T):    
-    lst = list(map(str,input().strip()))
+for _ in range(T):
+    W = input()
     K = int(input())
-
-    
-        
     dict = {}
+    s = set()
 
-    for s in set(lst):
-        dict[s] = []
-    
-    for i in range(len(lst)):
-        dict[lst[i]].append(i)
-    
-    mx,mn = -1, len(lst)+1 
+    for i in range(ord('a'),ord('z')+1):
+        dict[chr(i)] = []
 
-    for d in dict.values():
-        if len(d) >= K :             
+    for i in range(len(W)):
+        dict[W[i]].append(i)
 
-            for i in range(len(d)-K+1):
-                mn = min(mn,d[i+K-1 ] - d[i] + 1)
-                mx = max(mx,d[i+K-1 ] - d[i] + 1)
-    
+    for v in dict.values():
+        if(len(v) >= K):
+            for q in range(len(v)-K+1):
+                s.add(v[q+K-1] - v[q] + 1)
 
-    if mn == -1 or mx == -1 : 
+
+    if (s):
+        print(min(s), max(s))
+    else:
         print(-1)
-    else : print(mn,mx)
-    
-    
-    
+
+
+
