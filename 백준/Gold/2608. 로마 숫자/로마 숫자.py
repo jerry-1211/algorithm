@@ -38,18 +38,12 @@ print(result)
 lst = []
 for i in range(len(roma)-1,-1,-1):
     count = result // roma[i][0]
-
+    result = result % roma[i][0]
 
     # print(result, count,roma[i][1])
-    if count <= 3:
-        result = result % roma[i][0]
-        for k in range(count):
-            lst.append(roma[i][1])
-    else:
-        lst.append(roma[i][1])
-        lst.append(roma[i][1])
-        lst.append(roma[i][1])
-        result = result - (roma[i][0]*3)
 
+    for k in range(count):
+        # print(roma[i][1])
+        lst.append(roma[i][1])
 
 print("".join(lst))
