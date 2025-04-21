@@ -1,9 +1,11 @@
 N = int(input())
-lst = list(map(int,input().split()))
-dp = [1] * N 
+arr = list(map(int,input().split()))
 
-for i in range(1,len(lst)):
-    for j in range(i):
-        if lst[i] > lst[j] :
-            dp[i] = max(dp[i],dp[j]+1)
+dp = [0] * 2000
+
+for i in range(len(arr)):
+    idx = arr[i]
+    # if idx == 0 : continue
+    dp[idx] = max(dp[:idx]) + 1
+
 print(max(dp))
