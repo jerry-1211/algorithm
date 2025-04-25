@@ -1,29 +1,30 @@
+import sys
 from collections import deque
 
+
 N = int(input())
-over = set()
+overtaking = set()
 
-arr1 = deque()
+Deagun = deque()
 for _ in range(N):
-    arr1.append(input())
+    Deagun.append(input())
 
-arr2 = []
+Youngsick = deque()
 for _ in range(N):
-    arr2.append(input())
-arr2.reverse()
+    Youngsick.append(input())
 
 result = 0
 
-while arr1:
-    tmp1 = arr1.popleft()
+while Deagun:
+    Deagun_car = Deagun.popleft()
 
-    if tmp1 in over:
+    if Deagun_car in overtaking:
         continue
 
-    while arr2:
-        tmp2 = arr2.pop()
-        if tmp2 != tmp1 :
-            over.add(tmp2)
+    while Youngsick:
+        Youngsick_car = Youngsick.popleft()
+        if Youngsick_car != Deagun_car :
+            overtaking.add(Youngsick_car)
             result += 1
         else:
             break
