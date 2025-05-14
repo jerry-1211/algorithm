@@ -29,9 +29,13 @@ while(q):
         nj = v[1] + dj[k]
 
         if 0<= ni < N and 0<= nj < M:
-            if arr[ni][nj] == 1  and visit[ni][nj] == -1 :
+            if visit[ni][nj] == -1 :
                 q.append([ni,nj])
                 visit[ni][nj] = visit[v[0]][v[1]] + 1
 
+
 for row in visit:
     print(*row)
+
+
+
