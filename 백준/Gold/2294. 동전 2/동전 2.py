@@ -1,32 +1,18 @@
 N, K = map(int,input().split())
-dp = [-1] * (K+1)
+dp = [float('inf')] * (K+1)
 arr = []
 
 for _ in range(N):
     arr.append(int(input()))
 
+dp[0] = 0
+
 for n in arr:
+    for k in range(n, K+1):
+        dp[k] = min(dp[k], dp[k-n]+1)
 
-    if n > K :
-        continue
 
-    dp[n] = 1
-
-    for k in range(n+1,K+1):
-
-        if(dp[k-n] == -1 and dp[k] == -1):
-            continue
-
-        if(dp[k] == -1) :
-            dp[k] = dp[k-n] + 1
-            continue
-
-        if (dp[k-n] == -1):
-            continue
-
-        dp[k] = min(dp[k-n] + 1, dp[k])
-
-if dp[K] == 0:
+if dp[K] == float('inf'):
     print(-1)
 else:
     print(dp[K])
