@@ -1,19 +1,16 @@
 from collections import deque
 
-N,M = map(int,input().split())
-
-cheese = []
-for n in range(N):
-    cheese.append(list(map(int, input().split())))
-
-di,dj = [0,-1,0,1],[1,0,-1,0]
-
-def cheese_sum():
+# 치즈가 다 녹은
+def check_all_melt():
     ch_sum = 0
     for n in range(N):
         for m in range(M):
             ch_sum += cheese[n][m]
-    return ch_sum
+
+    if ch_sum == 0:
+        return True
+    return False
+
 
 def bfs(x,y):
     q = deque([[x,y]])
@@ -31,11 +28,8 @@ def bfs(x,y):
                     cheese[ni][nj] = -100_000
 
 
-
-cnt = 0
-answer = []
-while cheese_sum()!=0:
-
+def add_remaining_cheese():
+    global n, m
     tmp = 0
     for n in range(N):
         for m in range(M):
@@ -43,8 +37,9 @@ while cheese_sum()!=0:
                 tmp += 1
     answer.append(tmp)
 
-    bfs(0, 0)
 
+def expire_cheese():
+    global n, m
     for n in range(N):
         for m in range(M):
             if cheese[n][m] == -100_000:
@@ -52,6 +47,21 @@ while cheese_sum()!=0:
 
 
 
+N,M = map(int,input().split())
+cheese = []
+cnt = 0
+answer = []
+
+for n in range(N):
+    cheese.append(list(map(int, input().split())))
+
+di,dj = [0,-1,0,1],[1,0,-1,0]
+
+
+while not(check_all_melt()):
+    add_remaining_cheese()
+    bfs(0, 0)
+    expire_cheese()
     cnt += 1
 
 print(cnt)
