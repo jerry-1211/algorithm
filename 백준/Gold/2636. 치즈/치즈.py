@@ -31,21 +31,10 @@ def bfs(x,y):
                     cheese[ni][nj] = -100_000
 
 
-tmp = 0
-for n in range(N):
-    for m in range(M):
-        if cheese[n][m] == 1:
-            tmp += 1
 
 cnt = 0
-answer = [tmp]
+answer = []
 while cheese_sum()!=0:
-    bfs(0, 0)
-
-    for n in range(N):
-        for m in range(M):
-            if cheese[n][m] == -100_000:
-                cheese[n][m] = 0
 
     tmp = 0
     for n in range(N):
@@ -54,10 +43,19 @@ while cheese_sum()!=0:
                 tmp += 1
     answer.append(tmp)
 
+    bfs(0, 0)
+
+    for n in range(N):
+        for m in range(M):
+            if cheese[n][m] == -100_000:
+                cheese[n][m] = 0
+
+
+
     cnt += 1
 
 print(cnt)
-print(answer[-2])
+print(answer[-1])
 
 
 
