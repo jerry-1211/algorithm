@@ -15,9 +15,8 @@ public class Main {
         int count = 0;
 
 
-
         if (N >= 100 ){
-            for (int i = 100; i < N+1; i++) {
+            for (int i = 100; i<= N; i++) {
                 int hundreds = i/100;
                 int tens = (i%100) / 10;
                 int ones = i % 10;
@@ -32,7 +31,10 @@ public class Main {
         }
 
 
+
         System.out.println(count);
+
+
 
     }
 }
