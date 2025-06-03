@@ -10,7 +10,7 @@ result = float("inf")
 L,R = 0,1
 
 while(True):
-    if R == len(arr)-1 and arr[R] - arr[L] < M :
+    if R == len(arr):
         break
 
     if arr[R] - arr[L] == M:
@@ -23,5 +23,4 @@ while(True):
     elif arr[R] - arr[L] < M:
         R += 1
 
-    
 print(result)
