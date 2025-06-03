@@ -1,25 +1,27 @@
-N,M = list(map(int,input().split()))
-lst = []
+N,M = map(int,input().split())
+arr =[]
 
 for _ in range(N):
-    lst.append(int(input()))
-lst.sort()
+    arr.append(int(input()))
 
+arr.sort()
+result = float("inf")
 
-start,end = 0,1
-mn = 1e10
+L,R = 0,1
 
-while True:
-    if end == N-1 and lst[end]-lst[start]<M:
+while(True):
+    if R == len(arr)-1 and arr[R] - arr[L] < M :
         break
 
-    if lst[end] - lst[start] < M:
-        end += 1
-    elif lst[end] - lst[start] == M :
-        mn = M
+    if arr[R] - arr[L] == M:
+        result = M
         break
-    else :
-        mn = min(mn,lst[end]-lst[start])
-        start += 1
 
-print(mn)
+    if arr[R] - arr[L] > M:
+        result = min(result, arr[R] - arr[L])
+        L += 1
+    elif arr[R] - arr[L] < M:
+        R += 1
+
+    
+print(result)
