@@ -26,18 +26,23 @@ start = 0
 end = 0
 
 cnt = 0
+result = 0
 while(True):
 
-    if sum(lst[start:end]) == N:
+    if result == N:
         cnt += 1
 
-    if sum(lst[start:end]) <= N  and end < len(lst):
+    if result <= N  and end < len(lst):
+        result += lst[end]
         end += 1
 
-    elif sum(lst[start:end]) > N :
+    elif result > N :
+        result -= lst[start]
         start += 1
+
     else:
         break
 
 
 print(cnt)
+
