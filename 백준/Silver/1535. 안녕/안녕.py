@@ -1,25 +1,13 @@
-N = int(input())
+n = int(input())
+lose = list(map(int, input().split()))
+joy = list(map(int, input().split()))
 
-L = list(map(int,input().split()))
-J = list(map(int,input().split()))
+# dp[i] = 체력이 i일 때 얻을 수 있는 최대 기쁨
+dp = [0] * 100
 
-result = 0
-def dfs(n,H,answer):
-    global result
-    
-    result = max(result, answer)
-    if n >= N:
-        return
+for i in range(n):
+    # 뒤에서부터 계산해야 중복 계산 방지
+    for j in range(99, lose[i] - 1, -1):
+        dp[j] = max(dp[j], dp[j - lose[i]] + joy[i])
 
-    dfs(n+1, H, answer)
-
-    if H-L[n] > 0:
-        dfs(n+1, H-L[n], answer+J[n])
-
-
-
-
-dfs(0,100,0)
-
-print(result)
-
+print(dp[99])
