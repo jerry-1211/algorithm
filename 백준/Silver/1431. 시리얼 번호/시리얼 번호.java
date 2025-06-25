@@ -24,19 +24,18 @@ public class Main {
                 return o1.compareTo(o2);
             }
         });
-        
+
         for (String s : arr) {
             System.out.println(s);
         }
     }
-    
+
     public static int calculateNumber(String o1){
-        int L = o1.length();
         int total = 0;
 
-        for (int i = 0; i < L; i++) {
-            if(o1.charAt(i)>='0' && o1.charAt(i)<='9'){
-                total += Integer.parseInt(String.valueOf(o1.charAt(i)));
+        for (char c : o1.toCharArray()) {
+            if (Character.isDigit(c)) {
+                total += c - '0';
             }
         }
         return total;
