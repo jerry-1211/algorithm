@@ -6,7 +6,6 @@ import java.util.*;
 public class Main {
 
     public static void main(String[] args) throws Exception {
-
         BufferedReader br = new BufferedReader((new InputStreamReader(System.in)));
 
         int N = Integer.parseInt(br.readLine());
@@ -25,16 +24,12 @@ public class Main {
                 return o1.compareTo(o2);
             }
         });
-
-
+        
         for (String s : arr) {
             System.out.println(s);
         }
-
     }
-
-
-
+    
     public static int calculateNumber(String o1){
         int L = o1.length();
         int total = 0;
@@ -46,18 +41,6 @@ public class Main {
         }
         return total;
     }
-
-    public static int calculateString(String o1){
-        int L = o1.length();
-        int total = 0;
-
-        for (int i = 0; i < L; i++) {
-            total += (int)o1.charAt(i);
-        }
-        return total;
-    }
-
-
 
 }
 
