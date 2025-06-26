@@ -16,21 +16,17 @@ public class Main {
 
         HashMap<Integer, Integer> dict = new HashMap<>();
 
-        for (int i = 0; i < N; i++) {
-            dict.putIfAbsent(array[i], 0);
-            dict.put(array[i], dict.get(array[i]) + 1);
+        for (int value : array) {
+            dict.put(value, dict.getOrDefault(value, 0) + 1);
         }
 
 
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < M; i++) {
-            if(dict.get(result[i]) == null){
-                sb.append(0).append(" ");
-            }else{
-                sb.append(dict.get(result[i])).append(" ");
-            }
+
+        for (int value : result) {
+            sb.append(dict.getOrDefault(value, 0)).append(" ");
         }
-        
+
         System.out.println(sb);
 
     }
