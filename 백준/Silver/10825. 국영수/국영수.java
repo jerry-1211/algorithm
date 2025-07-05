@@ -6,43 +6,54 @@ import java.util.*;
 
 public class Main {
 
-    public static void main(String[] args) throws Exception {
+    public static void  main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader((new InputStreamReader(System.in)));
         StringTokenizer st;
 
         int N = Integer.parseInt(br.readLine());
 
-        ArrayList<ArrayList<Object>> array = new ArrayList<>();
-
-        for (int i = 0; i < N; i++) {
-            array.add(new AttributeList());
-        }
+        ArrayList<Student> array = new ArrayList<>();
 
         for (int i = 0; i < N; i++) {
             st = new StringTokenizer(br.readLine());
-            array.get(i).add(st.nextToken());
-            array.get(i).add(Integer.parseInt(st.nextToken()));
-            array.get(i).add(Integer.parseInt(st.nextToken()));
-            array.get(i).add(Integer.parseInt(st.nextToken()));
+            String name = st.nextToken();
+            int korean = Integer.parseInt(st.nextToken());
+            int english = Integer.parseInt(st.nextToken());
+            int math = Integer.parseInt(st.nextToken());
+            array.add(new Student(name, korean, english, math));
         }
 
         array.sort((a,b)->{
-            if(a.get(1) != b.get(1)){
-                return (Integer) b.get(1) - (Integer) a.get(1);
-            }else if(a.get(2) != b.get(2)){
-                return (Integer) a.get(2) - (Integer) b.get(2);
-            }else if(a.get(3) != b.get(3)){
-                return (Integer) b.get(3) - (Integer) a.get(3);
+            if(a.korean != b.korean){
+                return b.korean - a.korean;
+            }else if(a.english != b.english){
+                return a.english - b.english;
+            }else if(a.math != b.math){
+                return b.math - a.math;
             }else{
-                return ((String) a.get(0)).compareTo((String) b.get(0));
+                return a.name.compareTo(b.name);
             }
         });
 
-        for (ArrayList<Object> value : array) {
-            System.out.println(value.get(0));
+        for (Student student : array) {
+            System.out.println(student.name);
         }
     }
 
+}
+
+class Student{
+    public String name;
+    public int korean;
+    public int english;
+    public int math;
+
+    public Student(String name, int korean, int english, int math) {
+        this.name = name;
+        this.korean = korean;
+        this.english = english;
+        this.math = math;
+    }
 }
 
 
