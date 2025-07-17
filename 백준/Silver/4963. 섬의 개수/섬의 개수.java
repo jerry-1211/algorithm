@@ -1,11 +1,21 @@
 import java.io.BufferedReader;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
 
 public class Main {
     static int[][] direction = {{0, 1}, {-1, 1}, {-1, 0}, {-1, -1}, {0, -1}, {1, 0}, {1, -1}, {1, 1}};
+    static int[][] rectangle, visit;
+    static int W , H;
+
+    static class Position{
+        int x, y;
+
+        Position(int x, int y){
+            this.x = x;
+            this.y = y;
+        }
+    }
 
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader((new InputStreamReader(System.in)));
@@ -14,20 +24,27 @@ public class Main {
 
         while(true){
             st = new StringTokenizer(br.readLine());
-            int W = Integer.parseInt(st.nextToken());
-            int H = Integer.parseInt(st.nextToken());
+            W = Integer.parseInt(st.nextToken());
+            H = Integer.parseInt(st.nextToken());
 
-            if (checkLastInput(W, H)) break;
+            if (W == 0 && H == 0) break;
 
-            int[][] rectangle = new int[H][W];
-            int[][] visit = new int[H][W];
-            makeRectangle(H, br, W, rectangle);
+            rectangle = new int[H][W];
+            visit = new int[H][W];
+
+            for (int i = 0; i < H; i++) {
+                st = new StringTokenizer(br.readLine());
+                for (int j = 0; j < W; j++) {
+                    rectangle[i][j] = Integer.parseInt(st.nextToken());
+                }
+            }
 
             int result = 0;
+
             for (int i = 0; i < H; i++) {
                 for (int j = 0; j < W; j++) {
                     if(visit[i][j] == 0 && rectangle[i][j] == 1){
-                        bfs(rectangle, visit, i, j, H, W);
+                        bfs(i, j);
                         result += 1;
                     }
                 }
@@ -36,43 +53,29 @@ public class Main {
         }
     }
 
-    public static void bfs(int[][] rectangle, int[][] visit, int i, int j, int H, int W) {
+    public static void bfs(int i, int j) {
         visit[i][j] = 1;
-        ArrayDeque<int[]> queue = new ArrayDeque<>();
-        queue.offerFirst(new int[]{i, j});
+        ArrayDeque<Position> queue = new ArrayDeque<>();
+        queue.offerFirst(new Position(i,j));
 
         while (!queue.isEmpty()) {
-            int[] value = queue.removeFirst();
+            Position position = queue.removeFirst();
+            
             for (int k = 0; k < 8; k++) {
-                int ni = value[0] + direction[k][0];
-                int nj = value[1] + direction[k][1];
+                int ni = position.x + direction[k][0];
+                int nj = position.y + direction[k][1];
 
                 if (0 <= ni && ni < H && 0 <= nj && nj < W) {
                     if(visit[ni][nj] == 0){
                         visit[ni][nj] = 1;
                         if(rectangle[ni][nj] == 1){
-                            queue.offerLast(new int[]{ni, nj});
+                            queue.offerLast(new Position(ni, nj));
                         }
                     }
                 }
             }
         }
-
-
-    }
-    
-    private static void makeRectangle(int H, BufferedReader br, int W, int[][] rectangle) throws IOException {
-        StringTokenizer st;
-        for (int i = 0; i < H; i++) {
-            st = new StringTokenizer(br.readLine());
-            for (int j = 0; j < W; j++) {
-                rectangle[i][j] = Integer.parseInt(st.nextToken());
-            }
-        }
     }
 
-    private static boolean checkLastInput(int W, int H) {
-        return W == 0 && H == 0;
-    }
 }
 
