@@ -1,7 +1,6 @@
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
-import java.lang.reflect.Array;
 import java.util.*;
 
 public class Main {
@@ -30,7 +29,6 @@ public class Main {
             result = Math.min(result, v);
 
         }
-
         System.out.println(result.intValue());
     }
 
@@ -62,12 +60,11 @@ public class Main {
         }
 
         dp[N - 1] = dpFinalize(dp[N - 1], index);
-
         return dpMin(dp);
     }
 
     static public Double dpMin(Double[][] dp){
-        return Arrays.stream(dp[N - 1]).min(Double::compareTo).orElse(Double.POSITIVE_INFINITY);
+        return Collections.min(Arrays.asList(dp[N - 1]));
     }
 
     private static Double[][] dpReset() {
@@ -77,8 +74,6 @@ public class Main {
         }
         return dp;
     }
-
-
 
 }
 
