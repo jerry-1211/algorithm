@@ -19,20 +19,11 @@ public class Main {
         M = Integer.parseInt(st.nextToken());
 
         array = Arrays.stream(br.readLine().split(" ")).mapToInt(Integer::parseInt).toArray();
+        Arrays.sort(array);
         combinations(new ArrayList<>(), 0);
+        
 
-
-        List<ArrayList<Integer>> answer = result.stream().sorted((list1, list2) -> {
-            for (int i = 0; i < list1.size(); i++) {
-                if (!list1.get(i).equals(list2.get(i))) {
-                    return list1.get(i) - list2.get(i);
-                }
-            }
-            return list1.size() - list2.size();
-        }).collect(Collectors.toList());
-
-
-        for (ArrayList<Integer> list : answer) {
+        for (ArrayList<Integer> list : result) {
             for (Integer value : list) {
                 System.out.print(value + " ");
             }
@@ -43,10 +34,7 @@ public class Main {
 
     public static void combinations(ArrayList<Integer> list,  int index) {
         if (list.size() >= M) {
-            ArrayList<Integer> temp = new ArrayList<>(list.stream().sorted((a, b) -> {
-                return a - b;
-            }).collect(Collectors.toList()));
-            result.add(temp);
+            result.add(new ArrayList<>(list));
             return;
         }
 
