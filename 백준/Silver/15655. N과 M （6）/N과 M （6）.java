@@ -19,13 +19,12 @@ public class Main {
         M = Integer.parseInt(st.nextToken());
 
         array = Arrays.stream(br.readLine().split(" ")).mapToInt(Integer::parseInt).toArray();
-        Arrays.sort(array); // 이 한 줄만 추가하세요
-
         combinations(new ArrayList<>(), 0);
+
 
         List<ArrayList<Integer>> answer = result.stream().sorted((list1, list2) -> {
             for (int i = 0; i < list1.size(); i++) {
-                if (list1.get(i) != list2.get(i)) {
+                if (!list1.get(i).equals(list2.get(i))) {
                     return list1.get(i) - list2.get(i);
                 }
             }
@@ -60,4 +59,6 @@ public class Main {
     }
 
 }
+
+
 
