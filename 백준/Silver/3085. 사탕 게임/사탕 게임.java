@@ -1,83 +1,112 @@
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import java.util.*;
 
 public class Main {
-    static int[][] direction = {{0, 1}, {1, 0}};
-    static String[][] bomb;
+
+    static String[][] array;
     static int N;
 
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader((new InputStreamReader(System.in)));
+        StringTokenizer st;
 
         N = Integer.parseInt(br.readLine());
-        bomb = new String[N][N];
+
+        array = new String[N][N];
 
         for (int i = 0; i < N; i++) {
-            bomb[i] = br.readLine().split("");
+            String[] tmpArray = br.readLine().split("");
+            for (int j = 0; j < N; j++) {
+                array[i][j] = tmpArray[j];
+            }
         }
 
+        int result = Integer.MIN_VALUE;
 
-        int result = 0;
-
-        for (int i = 0; i < N; i++) {
+        for (int i = 1; i < N; i++) {
             for (int j = 0; j < N; j++) {
-                for (int k = 0; k < 2; k++) {
-                    int ni = i + direction[k][0];
-                    int nj = j + direction[k][1];
-                    if (ni < N && nj < N) {
-                        String[][] tempBomb = new String[N][N];
-                        deepCopy(tempBomb);
-                        String temp = tempBomb[i][j];
-                        tempBomb[i][j] = tempBomb[ni][nj];
-                        tempBomb[ni][nj] = temp;
+                if(!array[i][j].equals(array[i-1][j])){
 
-                        result = Math.max(result,checkMaxCandy(tempBomb));
-                    }
+                    String[][] tmpClone = deepCopy();
+
+                    String tmp = tmpClone[i-1][j];
+                    tmpClone[i-1][j] = tmpClone[i][j];
+                    tmpClone[i][j] = tmp;
+
+                    result = Math.max(checkBomboni(tmpClone), result);
                 }
             }
         }
-        
+
+        for (int j = 1; j < N; j++) {
+            for (int i = 0; i < N; i++) {
+                if(!array[i][j].equals(array[i][j-1])){
+
+                    String[][] tmpClone = deepCopy();
+
+                    String tmp = tmpClone[i][j-1];
+                    tmpClone[i][j-1] = tmpClone[i][j];
+                    tmpClone[i][j] = tmp;
+
+                    result = Math.max(checkBomboni(tmpClone), result);
+                }
+            }
+        }
+
         System.out.println(result);
-        
+
     }
 
-    public static int checkMaxCandy(String[][] tempBomb) {
-        int maxCount = 0;
+
+    static int checkBomboni(String[][] array){
+        int mx = 0;
+
         for (int i = 0; i < N; i++) {
             int count = 1;
             for (int j = 1; j < N; j++) {
-                if(tempBomb[i][j].equals(tempBomb[i][j-1])){
+                if (array[i][j].equals(array[i][j-1])) {
                     count++;
-                }else{
-                    maxCount = Math.max(maxCount, count);
+                } else {
+                    mx = Math.max(mx, count);
                     count = 1;
                 }
             }
-            maxCount = Math.max(maxCount, count);
+            mx = Math.max(mx, count);
         }
-        
+
         for (int j = 0; j < N; j++) {
             int count = 1;
             for (int i = 1; i < N; i++) {
-                if(tempBomb[i][j].equals(tempBomb[i-1][j])){
+                if (array[i][j].equals(array[i-1][j])) {
                     count++;
-                }else{
-                    maxCount = Math.max(maxCount, count);
+                } else {
+                    mx = Math.max(mx, count);
                     count = 1;
                 }
             }
-            maxCount = Math.max(maxCount, count);
+            mx = Math.max(mx, count);
         }
 
-        return maxCount;
+        return mx;
     }
 
-    public static void deepCopy(String[][] tempBomb){
+
+
+    static String[][] deepCopy(){
+        String[][] copyArray = new String[N][N];
         for (int i = 0; i < N; i++) {
-            tempBomb[i] = bomb[i].clone();
+            copyArray[i] = array[i].clone();
         }
+        return copyArray;
     }
+
 
 }
+
+
+
+
+
 
