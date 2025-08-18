@@ -9,28 +9,20 @@ class Main {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int N = Integer.parseInt(br.readLine());
-        int[] distance = Arrays.stream(br.readLine().split(" ")).mapToInt(Integer::parseInt).toArray();
-        int[] city = Arrays.stream(br.readLine().split(" ")).mapToInt(Integer::parseInt).toArray();
+        long[] distance = Arrays.stream(br.readLine().split(" ")).mapToLong(Long::parseLong).toArray();
+        long[] city = Arrays.stream(br.readLine().split(" ")).mapToLong(Long::parseLong).toArray();
 
-        int result = 0;
-        int count = distance[N-2];
-        int mn = city[N-2];
+        long mn = city[0];
+        long result = distance[0] * mn;
         
-        for(int i = N-3; i >= 0; i--){
-            
-            if(city[i+1] >= city[i]){
+
+        for(int i = 1 ; i < N-1 ; i++){
+            if(city[i] < mn){
                 mn = city[i];
-                count += distance[i]; 
-            }else{
-                result += (count * mn);
-                mn = city[i];
-                count = distance[i];
             }
+            result += (distance[i] * mn);
         }
-
-        result += (mn * count);
+        
         System.out.println(result);
-        
-        
     }
 }
