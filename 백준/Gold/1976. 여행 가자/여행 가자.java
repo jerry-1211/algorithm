@@ -31,8 +31,8 @@ class Main {
         ArrayDeque<Integer> queue = new ArrayDeque<>();
 
         int destination = destinations[0];
-        visited[destination-1] = 1;
-        queue.offer(destination-1);
+        visited[destination - 1] = 1;
+        queue.offer(destination - 1);
 
         while(!queue.isEmpty()){
             int city = queue.poll();
