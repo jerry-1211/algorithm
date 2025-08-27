@@ -17,7 +17,7 @@ class Main {
                 set.add(name);    
             }else{
                 result += set.size();
-                set = new HashSet<>();
+                set.clear();
             }
         }
 
