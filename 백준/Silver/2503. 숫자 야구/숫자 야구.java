@@ -26,7 +26,7 @@ class Main {
             if(guest[0] != guest[1] && guest[1] != guest[2] && guest[0] != guest[2]){
                 if(guest[0] != '0' && guest[1] != '0' && guest[2] != '0'){
                     if(checkCounter(guest)){
-                        result += 1;
+                    result += 1;
                     }
                 }
             }
@@ -58,12 +58,11 @@ class Main {
 
         for(int i = 0; i < 3; i++){
             for(int j = 0; j < 3; j++){
-                if(answer[i] == guest[j]){
+                if(i != j && answer[i] == guest[j]){
                      counter[1] += 1;   
                 }
             }
         }
-        counter[1] -= counter[0];
         return counter;
     }
 
