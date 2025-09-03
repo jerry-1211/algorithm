@@ -14,20 +14,14 @@ class Main {
         remocon = new boolean[10];
         Arrays.fill(remocon, true);
 
-        if(M != 0 ){
+        if(M != 0){
             StringTokenizer st = new StringTokenizer(br.readLine());
             for(int i = 0; i < M; i++){
                 remocon[Integer.parseInt(st.nextToken())] = false;   
             }
         }
 
-
-
-        
-        
-        int result = Math.abs(N - 100);    
-
-        
+        int result = Math.abs(N - 100);            
         for(int i = 0; i < 1_000_000; i++){            
             if(checkPossibleByRemocon(i)){
                 result = Math.min(result, Math.abs(N - i) + String.valueOf(i).length());
